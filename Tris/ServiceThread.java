@@ -53,7 +53,7 @@ public class ServiceThread extends Thread{
 					case "set" : 
 						try{
 						 
-						 t.setSymbol(str[1],Integer.parseInt(str[2]),Integer.parseInt(str[3]));
+						 t.setSymbol(str[1],Integer.parseInt(str[2]) + 1,Integer.parseInt(str[3]) +1);
 						
 						} catch(MossaNonConsentitaException e){
 							

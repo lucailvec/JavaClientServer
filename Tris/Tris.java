@@ -20,7 +20,8 @@ public class Tris{
 	} 
 
 	public void setSymbol(String sym, int x, int y) throws MossaNonConsentitaException{
-		if(table[x][y]=="-")
+		
+		if(table[x][y]=="-" && x>=1 && x<=3 && y>=1 &&y<=3)
 			table[x][y]=sym;
 		else
 			throw new MossaNonConsentitaException();

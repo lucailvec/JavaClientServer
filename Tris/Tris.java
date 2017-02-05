@@ -7,7 +7,7 @@ public class Tris{
 	public enum Stato {
 		OK,EXIT_PLAYER
 	}
-	private static final String HELP = "Use 'set sym x y' to set your symbol on table or '?' to get the table";
+	public static final String HELP = "Use 'set sym x y' to set your symbol on table or '?' to get the table";
 	private String winner =null;
 	String [][] table;
 	private Stato stato = Stato.OK;
@@ -21,7 +21,7 @@ public class Tris{
 
 	public void setSymbol(String sym, int x, int y) throws MossaNonConsentitaException{
 		
-		if(table[x][y]=="-" && x>=1 && x<=3 && y>=1 &&y<=3)
+		if(table[x][y].equals("-") && x>=1 && x<=3 && y>=1 &&y<=3)
 			table[x][y]=sym;
 		else
 			throw new MossaNonConsentitaException();
@@ -50,10 +50,10 @@ public class Tris{
 		else
 			stato = Tris.Stato.EXIT_PLAYER;
 	}
-	public bool getStato(){
+	public Stato getStato(){
 		return stato;
 	}
-	public boolean isWinner(String p) {
+	public boolean isWinner() {
 		//player 1 ha la oh o
 		//player 2 ha la ics x
 		//è la prima istruzione ... è brutto fare il controllo qua se l' altro giocatore se ne è andato

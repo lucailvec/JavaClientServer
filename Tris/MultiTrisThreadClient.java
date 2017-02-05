@@ -17,16 +17,16 @@ public class MultiTrisThreadClient{
 		int length;
 
 		try{
-		
-			s.connect(new InetSocketAddress("localhost", port));
 
-			Sender sender = new Sender(s);
+			s.connect(new InetSocketAddress("localhost", port));
+			Sender sender = new Sender(s);	
+
 			
 			System.out.println("Send something to server or write 'exit'");
 			while((mex=keyboard.readLine()).compareTo("exit")!=0){
 
 				sender.send(mex);
-				System.out.println(sender.read());
+				System.out.println(sender.receive());
 
 			}
 

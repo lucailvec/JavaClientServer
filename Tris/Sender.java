@@ -3,7 +3,7 @@ import java.net.*;
 
 class CloseSocketChannelException extends SocketException {}
 
-class Sender{
+public class Sender{
 	private InputStream is;
 	private OutputStream os;
 	private final int DIM = 100;

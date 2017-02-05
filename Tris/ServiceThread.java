@@ -25,7 +25,8 @@ class ServiceThread extends Thread{
 		String mexToCln;
 
 		try{
-		 sender = new Sender(toCln);			
+		 sender = new Sender(toCln);		
+		 	
 		 if(player ==1){
 			sender.send("METTITI AD ASPETTARE L' ALTRO GIOCATORE");
 		 	t.endRound();	
@@ -54,7 +55,7 @@ class ServiceThread extends Thread{
 					break;
 				}
 				
-				str=sender.read().split(" ");
+				str=sender.receive().split(" ");
 
 
 				switch (str[0]){
@@ -67,7 +68,7 @@ class ServiceThread extends Thread{
 						} catch(MossaNonConsentitaException e){
 							
 							sender.send("Mossa non consentita");
-						}catch(ArrayIndexOfBoundException e ){
+						}catch(ArrayIndexOutOfBoundsException e ){
 							
 							sender.send("Mossa non compresa, riprova o digita ?");
 						}
@@ -102,7 +103,7 @@ class ServiceThread extends Thread{
 			t.startRound();
 			try{
 				sender.send("addio");
-			}catch(CloseSocketChannelException e ){
+			}catch(CloseSocketChannelException ep ){
 				System.out.println("SERVER: un giocatore ha interrotto la comunicazione");
 			}
 		}catch(CloseSocketChannelException e ){

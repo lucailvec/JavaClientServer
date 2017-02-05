@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Tris{
-
+	private String winner =null;
 	String [][] table;
 
 	public Tris(){
@@ -26,14 +26,38 @@ public class Tris{
 
 	public synchronized void startRound(){
 
-		try{
 			notify();	
 			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		
 	}
-
+	public boolean isWinner(String p){
+		//player 1 ha la oh o
+		//player 2 ha la ics x
+		for(int x =0; x<2;x++){
+			if(table[x][0].equals(table[x][1]) && table[x][1].equals(table[x][2]) && ! table[x][1].equals("-")){//non è inizializzato
+				winner = table[x][0];
+				return true;
+			
+			}
+		}
+		for(int x=0;x<2;x++){
+			if(table[0][x].equals(table[1][x]) && table[1][x].equals(table[2][x]) && ! table[1][x].equals("-")){//non è inizializzato
+				winner = table[0][x];
+				return true;
+			
+			}
+		}
+		
+		if(table[0][0].equals(table[1][1]) && table[1][1].equals(table[2][2]) && ! table[1][1].equals("-")){
+			winner = table[0][0];
+			return true;
+		}
+		if(table[2][0].equals(table[1][1]) && table[1][1].equals(table[0][2]) && ! table[1][1].equals("-")){
+			winner = table[2][0];
+			return true;
+		}
+		return false;
+	}
 	public synchronized void endRound(){
 
 		try{

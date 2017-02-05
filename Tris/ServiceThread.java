@@ -35,13 +35,21 @@ public class ServiceThread extends Thread{
 	
 			
 			while(true){
+				if(t.getStato()==Tris.Stato.EXIT_PLAYER){
+					sender.send("Hai vinto a tavolino, complimenti un par di balle!");
+					throw new AltroGiocatoreSeNeEAndatoException();
+				}
+			
 				if(t.isWinner()){//deve essere prima della read se no ciao
 					if(player==1 && t.getWinner().equals("o"))
 						sender.send("Hai vinto bravohhhhh");
+						sender.send( "Current table : \n" + t.getTable());
 					else{
 						sender.send("Hai PERSO bravohhhhh");
 						sender.send( "Current table : \n" + t.getTable());
 					}
+					//risveglio gli altri prima di chiudermi
+					table.startRound();
 					break;
 				}
 				
@@ -72,7 +80,10 @@ public class ServiceThread extends Thread{
 						 mexToCln = "Current table : \n" + t.getTable();
 						 sender.send(mexToCln);
 						 break;
-
+					case "exit":
+						sender.send("hai deciso di perdere a  tavolino ciao");
+						t.setMeNeVado();
+						break;
 					default:
 						sender.send(Tris.HELP);				
 						break;
@@ -86,8 +97,16 @@ public class ServiceThread extends Thread{
 			toCln.close();
 			System.out.println("Client socket closed");
 			
+		}catch(AltroGiocatoreSeNeEAndatoException e){
+			table.startRound();
+			try{
+				sender.send("addio");
+			}catch(CloseSocketChannelException e ){
+				System.out.println("SERVER: un giocatore ha interrotto la comunicazione");
+			}
 		}catch(CloseSocketChannelException e ){
 			System.out.println("SERVER: il client ha interrotto la comunicazione");
+			table.startRound();
 			//chiudi la socket e sveglia gli altri
 		}
 		catch(Exception e){

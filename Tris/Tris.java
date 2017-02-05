@@ -44,9 +44,19 @@ public class Tris{
 	public String getWinner(){
 		return this.winner;
 	}
-	public boolean isWinner(String p){
+	public	void setMeNeVado() throws AltroGiocatoreSeNeEAndatoException{
+		if(stato == Tris.Stato.EXIT_PLAYER)
+			throw new AltroGiocatoreSeNeEAndatoException();
+		else
+			stato = Tris.Stato.EXIT_PLAYER;
+	}
+	public bool getStato(){
+		return stato;
+	}
+	public boolean isWinner(String p) {
 		//player 1 ha la oh o
 		//player 2 ha la ics x
+		//è la prima istruzione ... è brutto fare il controllo qua se l' altro giocatore se ne è andato
 		for(int x =0; x<2;x++){
 			if(table[x][0].equals(table[x][1]) && table[x][1].equals(table[x][2]) && ! table[x][1].equals("-")){//non è inizializzato
 				winner = table[x][0];

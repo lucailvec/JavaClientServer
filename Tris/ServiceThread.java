@@ -36,8 +36,12 @@ public class ServiceThread extends Thread{
 			
 			while(true){
 				if(t.isWinner()){//deve essere prima della read se no ciao
-					//qualcuno ha vinto non si sa ancora chi
-					sender.send("Qualcuno ha vinto bravohhhhh");
+					if(player==1 && t.getWinner().equals("o"))
+						sender.send("Hai vinto bravohhhhh");
+					else{
+						sender.send("Hai PERSO bravohhhhh");
+						sender.send( "Current table : \n" + t.getTable());
+					}
 					break;
 				}
 				
@@ -46,33 +50,37 @@ public class ServiceThread extends Thread{
 
 				switch (str[0]){
 
-				/*case "play" :
-				    	 out.write("Game table created. Use 'help' to continue.".getBytes());
-					 break;*/
+					case "set" : 
+						try{
+						 
+						 t.setSymbol(str[1],Integer.parseInt(str[2]),Integer.parseInt(str[3]));
+						
+						} catch(MossaNonConsentitaException e){
+							
+							sender.send("Mossa non consentita");
+						}catch(ArrayIndexOfBoundException e ){
+							
+							sender.send("Mossa non compresa, riprova o digita ?");
+						}
+						 sender.send("Set the symbol");
+						//finito il turno
+						table.startRound();
+						table.endRound();	
+						 break;
 
-				case "set" : 
-					 t.setSymbol(str[1],Integer.parseInt(str[2]),Integer.parseInt(str[3]));
-					 sender.send("Set the symbol");
-					 break;
+					case "?" : 	
+						 mexToCln = "Current table : \n" + t.getTable();
+						 sender.send(mexToCln);
+						 break;
 
-				case "?" : 	
-					 mexToCln = "Current table : \n" + t.getTable();
-					 sender.send(mexToCln);
-					 break;
-
-				default:
-					mexToCln = "Use 'set sym x y' to set your symbol on table or '?' to get the table";
-					sender.send(mexToCln);				
-					break;
+					default:
+						sender.send(Tris.HELP);				
+						break;
 
 				}	
 				
-				if(t.isWinner()){
-					//chiudi tutto e notifica per risvegliare l' altro thread
-				}else{
-					table.startRound();
-					 table.endRound();	
-				}
+				
+
 			}
 
 			toCln.close();

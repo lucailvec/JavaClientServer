@@ -18,20 +18,15 @@ public class MultiTrisThreadClient{
 
 		try{
 		
-			InetAddress local = InetAddress.getLocalHost();
-			InetSocketAddress serverAddress = new InetSocketAddress(local, port);	
-			s.connect(serverAddress);
+			s.connect(new InetSocketAddress("localhost", port));
 
-			OutputStream out = s.getOutputStream();
-			InputStream in = s.getInputStream();
+			Sender sender = new Sender(s);
 			
 			System.out.println("Send something to server or write 'exit'");
 			while((mex=keyboard.readLine()).compareTo("exit")!=0){
 
-				out.write(mex.getBytes(), 0, mex.length());
-				length = in.read(buffer);
-				fromSrv = new String (buffer, 0, length);
-				System.out.println(fromSrv);
+				sender.send(mex);
+				System.out.println(sender.read());
 
 			}
 

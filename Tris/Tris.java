@@ -10,7 +10,7 @@ public class Tris{
 	private static final String HELP = "Use 'set sym x y' to set your symbol on table or '?' to get the table";
 	private String winner =null;
 	String [][] table;
-	private stato = Stato.OK;
+	private Stato stato = Stato.OK;
 
 	public Tris(){
 		table = new String [3][3];

@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
 
-public class ServiceThread extends Thread{
+class ServiceThread extends Thread{
 
 	Socket toCln;
 	int player=0;
@@ -41,15 +41,16 @@ public class ServiceThread extends Thread{
 				}
 			
 				if(t.isWinner()){//deve essere prima della read se no ciao
-					if(player==1 && t.getWinner().equals("o"))
+					if(player==1 && t.getWinner().equals("o")){
 						sender.send("Hai vinto bravohhhhh");
 						sender.send( "Current table : \n" + t.getTable());
+					}
 					else{
 						sender.send("Hai PERSO bravohhhhh");
 						sender.send( "Current table : \n" + t.getTable());
 					}
 					//risveglio gli altri prima di chiudermi
-					table.startRound();
+					t.startRound();
 					break;
 				}
 				
@@ -72,8 +73,8 @@ public class ServiceThread extends Thread{
 						}
 						 sender.send("Set the symbol");
 						//finito il turno
-						table.startRound();
-						table.endRound();	
+						t.startRound();
+						t.endRound();	
 						 break;
 
 					case "?" : 	
@@ -98,7 +99,7 @@ public class ServiceThread extends Thread{
 			System.out.println("Client socket closed");
 			
 		}catch(AltroGiocatoreSeNeEAndatoException e){
-			table.startRound();
+			t.startRound();
 			try{
 				sender.send("addio");
 			}catch(CloseSocketChannelException e ){
@@ -106,7 +107,7 @@ public class ServiceThread extends Thread{
 			}
 		}catch(CloseSocketChannelException e ){
 			System.out.println("SERVER: il client ha interrotto la comunicazione");
-			table.startRound();
+			t.startRound();
 			//chiudi la socket e sveglia gli altri
 		}
 		catch(Exception e){

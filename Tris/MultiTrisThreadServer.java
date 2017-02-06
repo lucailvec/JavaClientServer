@@ -21,10 +21,14 @@ public class MultiTrisThreadServer{
 			while(true){
 
 				toCln = s.accept();	
-					player++;
+
 					ServiceThread sThread = new ServiceThread(toCln, player, t);
 					new Thread(sThread).start();
-				
+					player++;
+				if(player==3){
+					break;
+					
+				}
 			}			
 
 			

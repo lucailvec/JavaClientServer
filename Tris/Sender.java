@@ -36,7 +36,9 @@ public class Sender{
 		}
 		if(n==-1)
 			throw new CloseSocketChannelException();
-		else 
+		else if(n==0)
+			return " ";
+		else
 			return new String(buffer,0,n);
 	}
 

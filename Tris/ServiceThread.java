@@ -30,6 +30,8 @@ class ServiceThread extends Thread{
 		 if(player ==1){
 			sender.send("METTITI AD ASPETTARE L' ALTRO GIOCATORE");
 		 	t.endRound();	
+		 }else{
+			 sender.send("Tocca a te:");	
 		 }
 			
 		
@@ -40,15 +42,12 @@ class ServiceThread extends Thread{
 					sender.send("Hai vinto a tavolino, complimenti un par di balle!");
 					throw new AltroGiocatoreSeNeEAndatoException();
 				}
-			
 				if(t.isWinner()){//deve essere prima della read se no ciao
 					if(player==1 && t.getWinner().equals("o")){
-						sender.send("Hai vinto bravohhhhh");
-						sender.send( "Current table : \n" + t.getTable());
+						sender.send("Hai vinto bravohhhhh" + "\n Current table : \n" + t.getTable());
 					}
 					else{
-						sender.send("Hai PERSO bravohhhhh");
-						sender.send( "Current table : \n" + t.getTable());
+						sender.send("Hai PERSO bravohhhhh" + "\n Current table : \n" + t.getTable());
 					}
 					//risveglio gli altri prima di chiudermi
 					t.startRound();
@@ -63,20 +62,23 @@ class ServiceThread extends Thread{
 					case "set" : 
 						try{
 						 
-						 t.setSymbol(str[1],Integer.parseInt(str[2]) + 1,Integer.parseInt(str[3]) +1);
+						 t.setSymbol(str[1],Integer.parseInt(str[2]) - 1,Integer.parseInt(str[3]) - 1);
+						 //finito il turno
+							t.startRound();
+							t.endRound();
 						
 						} catch(MossaNonConsentitaException e){
 							
-							sender.send("Mossa non consentita");
+							sender.send("Mossa non consentita (MossaNonConsentitaException)");
 						}catch(ArrayIndexOutOfBoundsException e ){
 							
-							sender.send("Mossa non compresa, riprova o digita ?");
+							sender.send("Mossa non compresa, riprova o digita ? (ArrayIndexOutOfBoundsException)");
+						}catch(java.lang.NumberFormatException e ){
+							
+							sender.send("Errore deve essere: set simbolo x y");
 						}
-						 sender.send("Set the symbol");
-						//finito il turno
-						t.startRound();
-						t.endRound();	
-						 break;
+						break;
+						
 
 					case "?" : 	
 						 mexToCln = "Current table : \n" + t.getTable();

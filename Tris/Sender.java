@@ -5,6 +5,7 @@ class CloseSocketChannelException extends SocketException {}
 public class Sender{
 	private InputStream is;
 	private OutputStream os;
+
 	private final int DIM = 100;
 	public Sender(Socket s ) throws CloseSocketChannelException{
 		try{

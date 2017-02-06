@@ -7,7 +7,9 @@ public class Tris{
 	public enum Stato {
 		OK,EXIT_PLAYER
 	}
-	public static final String HELP = "Use 'set sym x y' to set your symbol on table or '?' to get the table";
+	private final String player1="o";//sarebbe meglio un enum ma non ho voglia
+	private final String player2="x";//e una map statica di <int,enum> ma va beh
+	public static final String HELP = "Use 'set x y' to set YOUR DEFAULT symbol on table or '?' to get the table";
 	private String winner =null;
 	String [][] table;
 	private Stato stato = Stato.OK;
@@ -19,8 +21,8 @@ public class Tris{
     			Arrays.fill(row, "-");
 	} 
 
-	public void setSymbol(String sym, int x, int y) throws MossaNonConsentitaException{
-		
+	public void setSymbol(int player , int x, int y) throws MossaNonConsentitaException{
+		String sym = getSymbol(player);
 		if(table[x][y].equals("-") && (x>=0 && x<=2 && y>=0 && y<=2))
 			table[x][y]=sym;
 		else
@@ -52,6 +54,13 @@ public class Tris{
 	}
 	public Stato getStato(){
 		return stato;
+	}
+	public String getSymbol(int player){
+		if(player==1){
+			return player1;
+		}
+		else
+			return player2;
 	}
 	public boolean isWinner() {
 		//player 1 ha la oh o

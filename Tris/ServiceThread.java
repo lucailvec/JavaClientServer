@@ -28,10 +28,10 @@ class ServiceThread extends Thread{
 		 sender = new Sender(toCln);		
 		 	
 		 if(player ==1){
-			sender.send("METTITI AD ASPETTARE L' ALTRO GIOCATORE");
+			sender.send("Benvenuto giocatore "+ t.getSymbol(player) + " METTITI AD ASPETTARE L' ALTRO GIOCATORE");
 		 	t.endRound();	
 		 }else{
-			 sender.send("Tocca a te:");	
+			 sender.send("Benvenuto giocatore "+ t.getSymbol(player) + " Tocca a te:");	
 		 }
 			
 		
@@ -62,10 +62,10 @@ class ServiceThread extends Thread{
 					case "set" : 
 						try{
 						 
-						 t.setSymbol(str[1],Integer.parseInt(str[2]) - 1,Integer.parseInt(str[3]) - 1);
+						 t.setSymbol(player,Integer.parseInt(str[1]) - 1,Integer.parseInt(str[2]) - 1);
 						 //finito il turno
 							t.startRound();
-							sender.send("Ti invio le cose se no ti imbamboli" + "Current table : \n" + t.getTable());
+							sender.send("Ti invio le cose se no ti imbamboli" + "Current table :  " + t.getTable() + "  Ora è il turno dell' altro, ti addormenti...");
 							t.endRound();
 							
 						
@@ -77,7 +77,7 @@ class ServiceThread extends Thread{
 							sender.send("Mossa non compresa, riprova o digita ? (ArrayIndexOutOfBoundsException)");
 						}catch(java.lang.NumberFormatException e ){
 							
-							sender.send("Errore deve essere: set simbolo x y");
+							sender.send("Errore deve essere: set x y");
 						}
 						break;
 						

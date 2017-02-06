@@ -33,8 +33,8 @@ public class MultiTrisThreadClient{
 				if(mex.length()>0){
 					if(mex.equals("exit"))
 						break;
-					if(mex.length()>0)
-						sender.send(mex);
+					
+					sender.send(mex);
 					System.out.println(sender.receive());
 				}
 				else{

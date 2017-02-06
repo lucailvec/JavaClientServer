@@ -23,16 +23,24 @@ public class MultiTrisThreadClient{
 
 			
 			System.out.println("Send something to server or write 'exit'");
+			System.out.println(sender.receive());
 			while(true){
-				System.out.println(sender.receive());
+				
 				mex=keyboard.readLine();
 				/*while(keyboard.read()!=-1){
 					keyboard.readLine();
 				}*/
-				if(mex.equals("exit"))
-					break;
-				if(mex.length()>0)
-					sender.send(mex);
+				if(mex.length()>0){
+					if(mex.equals("exit"))
+						break;
+					if(mex.length()>0)
+						sender.send(mex);
+					System.out.println(sender.receive());
+				}
+				else{
+					System.out.println("Inserisci una stringa > 0 ");
+				}
+				
 				
 
 

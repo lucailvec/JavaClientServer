@@ -2,7 +2,6 @@ import java.io.*;
 import java.net.*;
 
 class CloseSocketChannelException extends SocketException {}
-
 public class Sender{
 	private InputStream is;
 	private OutputStream os;
@@ -37,7 +36,7 @@ public class Sender{
 		if(n==-1)
 			throw new CloseSocketChannelException();
 		else if(n==0)
-			return " ";
+			return "";
 		else
 			return new String(buffer,0,n);
 	}

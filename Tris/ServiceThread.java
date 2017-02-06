@@ -65,7 +65,9 @@ class ServiceThread extends Thread{
 						 t.setSymbol(str[1],Integer.parseInt(str[2]) - 1,Integer.parseInt(str[3]) - 1);
 						 //finito il turno
 							t.startRound();
+							sender.send("Ti invio le cose se no ti imbamboli" + "Current table : \n" + t.getTable());
 							t.endRound();
+							
 						
 						} catch(MossaNonConsentitaException e){
 							
@@ -81,8 +83,7 @@ class ServiceThread extends Thread{
 						
 
 					case "?" : 	
-						 mexToCln = "Current table : \n" + t.getTable();
-						 sender.send(mexToCln);
+						 sender.send("Current table : \n" + t.getTable());
 						 break;
 					case "exit":
 						sender.send("hai deciso di perdere a  tavolino ciao");
